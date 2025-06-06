@@ -6,11 +6,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const port = 2000;
+
 // rota de cadastro
 app.post('/cadastro', (req, res) => {
-    const { email, senha } = req.body;
-    const query = 'INSERT INTO users (email, senha) VALUES (?, ?)';
-    connection.query(query, [email, senha], (err, result) => {
+    const { name, email, senha } = req.body;
+    const query = 'INSERT INTO users (name, email, senha) VALUES (?, ?, ?)';
+    connection.query(query, [name, email, senha], (err, result) => {
         if (err) {
             return res.status(500).json({
                 success: false,
@@ -52,3 +54,6 @@ app.post('/login', (req, res) => {
     });
 });
 
+
+
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
